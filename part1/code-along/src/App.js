@@ -1,18 +1,43 @@
 import React, {useState} from "react";
 
+const Display = (props) => {
+  return (
+    <div>{props.counter}</div>
+  )
+};
+
+const Button = (props) => {
+  return (
+    <button onClick={props.handleClick}>{props.text}</button>
+  )
+}
+
+
 const App = () => {
   const [ counter, setCounter ] = useState(0);
 
+  const increaseByOne = () => setCounter(counter + 1);
+  const decreaseByOne = () => setCounter(counter - 1);
+  const setToZero = () => setCounter(0);
+
   return (
     <>
-    <div>{counter}</div>
-    <button onClick={() => {setCounter(counter+1);}}>Plus</button>
-    <button onClick={() => {setCounter(0);}}>Reset</button>
+    <Display counter={counter} />
+    <Button 
+      handleClick={increaseByOne}
+      text="Plus"
+    />
+    <Button 
+      handleClick={setToZero}
+      text="Zero"
+    />
+    <Button 
+      handleClick={decreaseByOne}
+      text="Minus"
+    />
     </>
   );
-
 };
-
 
 export default App;
 // const App = () => {
@@ -53,5 +78,6 @@ export default App;
 //         </div>
 //     );
 // };
+
 
 
