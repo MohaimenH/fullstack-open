@@ -1,41 +1,96 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
-const Display = ({counter}) => <div>{counter}</div>;
-
-const Button = ({handleClick, text}) => (
-<button onClick={handleClick}>
-  {text}
-</button>
-);
-
+const History = (props) => {
+    if (props.allClicks.length === 0) {
+        return <div> the app is used by pressing the buttons </div>;
+    }
+    return <div> button press history: {props.allClicks.join(" ")} </div>;
+};
 
 const App = () => {
-  const [ counter, setCounter ] = useState(0);
+    const [left, setLeft] = useState(0);
+    const [right, setRight] = useState(0);
+    const [allClicks, setAll] = useState([]);
 
-  const increaseByOne = () => setCounter(counter + 1);
-  const decreaseByOne = () => setCounter(counter - 1);
-  const setToZero = () => setCounter(0);
+    const handleLeftClick = () => {
+        setAll(allClicks.concat("L"));
+        setLeft(left + 1);
+    };
 
-  return (
-    <div>
-    <Display counter={counter} />
-    <Button 
-      handleClick={increaseByOne}
-      text="Plus"
-    />
-    <Button 
-      handleClick={setToZero}
-      text="Zero"
-    />
-    <Button 
-      handleClick={decreaseByOne}
-      text="Minus"
-    />
-    </div>
-  );
+    const handleRightClick = () => {
+        setAll(allClicks.concat("R"));
+        setRight(right + 1);
+    };
+
+    return (
+        <div>
+            {left}
+            <button onClick={handleLeftClick}>left</button>
+            <button onClick={handleRightClick}>right</button>
+            {right}
+            <History allClicks={allClicks} />
+        </div>
+    );
 };
 
 export default App;
+
+// const [clicks, setClicks] = useState({left: 0, right: 0});
+
+// const handleLeftClick = () => setClicks({...clicks, left: clicks.left + 1,});
+//   // const newClicks = { // Object consisting of left and right, like the useState.
+//   //   ...clicks,
+//   //   left: clicks.left + 1,
+//   // }
+//   // Changing the entire object to a new object.
+
+// const handleRightClick = () => setClicks({...clicks, right: clicks.right + 1,});
+// // Changing the entire object to a new object.
+// // Using ...clicks to copy entire object then 'right' to overwrite the property in the copied obj.
+
+// return (
+//   <div>
+//     {clicks.left}
+//     <button onClick={handleLeftClick}>Left</button>
+//     <button onClick={handleRightClick}>Right</button>
+//     {clicks.right}
+//   </div>
+// )
+
+// const Display = ({counter}) => <div>{counter}</div>;
+
+// const Button = ({handleClick, text}) => (
+// <button onClick={handleClick}>
+//   {text}
+// </button>
+// );
+
+// const App = () => {
+//   const [ counter, setCounter ] = useState(0);
+
+//   const increaseByOne = () => setCounter(counter + 1);
+//   const decreaseByOne = () => setCounter(counter - 1);
+//   const setToZero = () => setCounter(0);
+
+//   return (
+//     <div>
+//     <Display counter={counter} />
+//     <Button
+//       handleClick={increaseByOne}
+//       text="Plus"
+//     />
+//     <Button
+//       handleClick={setToZero}
+//       text="Zero"
+//     />
+//     <Button
+//       handleClick={decreaseByOne}
+//       text="Minus"
+//     />
+//     </div>
+//   );
+// };
+
 // const App = () => {
 //   const [ counter, setCounter ] = useState(0);
 
@@ -45,7 +100,6 @@ export default App;
 //   )
 //   return <div>{counter}</div>;
 // };
-
 
 // const Hello = ({name, age}) => {
 
@@ -74,6 +128,3 @@ export default App;
 //         </div>
 //     );
 // };
-
-
-
