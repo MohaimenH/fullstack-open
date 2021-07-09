@@ -4,17 +4,34 @@ const Button = ({ handleClick, text }) => {
     return <button onClick={handleClick}>{text}</button>;
 };
 
-const Display = ({ text, value, symbol=''}) => {
-  if (isNaN(value)) {
-    return (
-      <div>
-        {text} 0
-      </div>
-    )
-  }
+const Display = ({ text, value, symbol = "" }) => {
+    if (isNaN(value)) {
+        return <div>{text} 0</div>;
+    }
     return (
         <div>
             {text} {value} {symbol}
+        </div>
+    );
+};
+
+const Statistics = ({ good, neutral, bad }) => {
+    return (
+        <div>
+            <h2>Statistics</h2>
+            <Display text="Good" value={good} />
+            <Display text="Neutral" value={neutral} />
+            <Display text="Bad" value={bad} />
+            <Display text="All" value={good + neutral + bad} />
+            <Display
+                text="Average"
+                value={(good + bad * -1) / (good + neutral + bad)}
+            />
+            <Display
+                text="Positive"
+                value={(good * 100) / (good + neutral + bad)}
+                symbol="%"
+            />
         </div>
     );
 };
@@ -48,16 +65,7 @@ const App = () => {
                 }}
                 text="Bad"
             />
-
-            <h2>Statistics</h2>
-
-            <Display text="Good" value={good} />
-            <Display text="Neutral" value={neutral} />
-            <Display text="Bad" value={bad} />
-
-            <Display text="All" value={good + neutral + bad} />
-            <Display text="Average" value={(good + bad * - 1)/(good + neutral + bad)} />
-            <Display text="Positive" value={good * 100/(good + neutral + bad)} symbol="%"/>
+            <Statistics good={good} neutral={neutral} bad={bad} />
         </div>
     );
 };
