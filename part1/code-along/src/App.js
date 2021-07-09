@@ -3,16 +3,16 @@ import React, { useState } from "react";
 const App = () => {
     const [value, setValue] = useState(10)
 
-    const setToValue = (newValue) => () => {
+    const setToValue = (newValue) => {
         setValue(newValue);
     }
     
     return (
       <div>
         {value}
-        <button onClick={setToValue(1000)}>Thousand</button>
-        <button onClick={setToValue(0)}>Reset</button>
-        <button onClick={setToValue(value + 1)}>Increment</button>
+        <button onClick={() => setToValue(0)}>Reset</button>
+        <button onClick={() => setToValue(1000)}>Thousand</button>
+        <button onClick={() => setToValue(value + 1)}>Increment</button>
       </div>
     );
   };
