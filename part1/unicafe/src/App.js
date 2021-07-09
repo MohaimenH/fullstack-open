@@ -16,9 +16,19 @@ const Display = ({ text, value, symbol = "" }) => {
 };
 
 const Statistics = ({ good, neutral, bad }) => {
+  if ( good + neutral + bad === 0) {
+    return (
+      <div>
+        <h2>Statistics</h2>
+        <p>No feedback given.</p>
+      </div>
+    );
+  }
+
     return (
         <div>
             <h2>Statistics</h2>
+
             <Display text="Good" value={good} />
             <Display text="Neutral" value={neutral} />
             <Display text="Bad" value={bad} />
@@ -32,6 +42,7 @@ const Statistics = ({ good, neutral, bad }) => {
                 value={(good * 100) / (good + neutral + bad)}
                 symbol="%"
             />
+
         </div>
     );
 };
