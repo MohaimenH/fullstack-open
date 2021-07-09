@@ -6,12 +6,16 @@ const Button = ({ handleClick, text }) => {
 
 const Display = ({ text, value, symbol = "" }) => {
     if (isNaN(value)) {
-        return <div>{text} 0</div>;
+        value = 0;
     }
     return (
-        <div>
-            {text} {value} {symbol}
-        </div>
+        <tr>
+            <td>{text}</td>
+            <td>
+                {value}
+                {symbol}
+            </td>
+        </tr>
     );
 };
 
@@ -31,13 +35,7 @@ const Statistic = ({ text, value, symbol }) => {
     }
 
     return (
-        <div>
-            <Display
-                text={text}
-                value={calculatedValue}
-                symbol={symbolToInsert}
-            />
-        </div>
+        <Display text={text} value={calculatedValue} symbol={symbolToInsert} />
     );
 };
 
@@ -54,16 +52,20 @@ const Statistics = ({ good, neutral, bad }) => {
     return (
         <div>
             <h2>Statistics</h2>
-            <Statistic text="Good" value={good} />
-            <Statistic text="Neutral" value={neutral} />
-            <Statistic text="Bad" value={bad} />
-            <Statistic text="All" value={[good, neutral, bad]} />
-            <Statistic text="Average" value={[good, neutral, bad]} />
-            <Statistic
-                text="Positive"
-                value={[good, neutral, bad]}
-                symbol="%"
-            />
+            <table>
+                <tbody>
+                    <Statistic text="Good" value={good} />
+                    <Statistic text="Neutral" value={neutral} />
+                    <Statistic text="Bad" value={bad} />
+                    <Statistic text="All" value={[good, neutral, bad]} />
+                    <Statistic text="Average" value={[good, neutral, bad]} />
+                    <Statistic
+                        text="Positive"
+                        value={[good, neutral, bad]}
+                        symbol="%"
+                    />
+                </tbody>
+            </table>
         </div>
     );
 };
