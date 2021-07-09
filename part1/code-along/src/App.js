@@ -1,39 +1,65 @@
 import React, { useState } from "react";
 
-const History = (props) => {
-    if (props.allClicks.length === 0) {
-        return <div> the app is used by pressing the buttons </div>;
-    }
-    return <div> button press history: {props.allClicks.join(" ")} </div>;
-};
-
 const App = () => {
-    const [left, setLeft] = useState(0);
-    const [right, setRight] = useState(0);
-    const [allClicks, setAll] = useState([]);
+    const [value, setValue] = useState(10)
 
-    const handleLeftClick = () => {
-        setAll(allClicks.concat("L"));
-        setLeft(left + 1);
+    const hello = (who) => {
+        return () => {
+            console.log('Hello', who);
+        }
     };
-
-    const handleRightClick = () => {
-        setAll(allClicks.concat("R"));
-        setRight(right + 1);
-    };
-
+    
     return (
-        <div>
-            {left}
-            <button onClick={handleLeftClick}>left</button>
-            <button onClick={handleRightClick}>right</button>
-            {right}
-            <History allClicks={allClicks} />
-        </div>
+      <div>
+        {value}
+        <button onClick={hello('World')}>Button World</button>
+        <button onClick={hello('Mohaimen')}>Button Mohaimen</button>
+      </div>
     );
-};
+  };
 
 export default App;
+
+// const History = (props) => {
+//     if (props.allClicks.length === 0) {
+//         return <div> the app is used by pressing the buttons </div>;
+//     }
+//     return <div> button press history: {props.allClicks.join(" ")} </div>;
+// };
+
+// const Button = ({handleClick, text}) => {
+//     return <button onClick={handleClick}>{text}</button>
+// }
+
+
+// const App = () => {
+//     const [left, setLeft] = useState(0);
+//     const [right, setRight] = useState(0);
+//     const [allClicks, setAll] = useState([]);
+
+//     const handleLeftClick = () => {
+//         setAll(allClicks.concat("L"));
+//         setLeft(left + 1);
+//     };
+
+//     const handleRightClick = () => {
+//         setAll(allClicks.concat("R"));
+//         setRight(right + 1);
+//     };
+
+//     // debugger;
+
+//     return (
+//         <div>
+//             {left}
+//             <Button handleClick={handleLeftClick} text="Left" />
+//             <Button handleClick={handleRightClick} text="Right" />
+//             {right}
+//             <History allClicks={allClicks} />
+//         </div>
+//     );
+// };
+
 
 // const [clicks, setClicks] = useState({left: 0, right: 0});
 
