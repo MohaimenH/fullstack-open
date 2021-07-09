@@ -15,34 +15,55 @@ const Display = ({ text, value, symbol = "" }) => {
     );
 };
 
-const Statistics = ({ good, neutral, bad }) => {
-  if ( good + neutral + bad === 0) {
+const Statistic = ({ text, value, symbol }) => {
+    let calculatedValue = 0;
+    let symbolToInsert = symbol || "";
+
+    if (text.toLowerCase() === "average") {
+        calculatedValue =
+            (value[0] + value[2] * -1) / (value[0] + value[1] + value[2]);
+    } else if (text.toLowerCase() === "positive") {
+        calculatedValue = (value[0] * 100) / (value[0] + value[1] + value[2]);
+    } else if (text.toLowerCase() === "all") {
+        calculatedValue = value[0] + value[1] + value[2];
+    } else {
+        calculatedValue = value;
+    }
+
     return (
-      <div>
-        <h2>Statistics</h2>
-        <p>No feedback given.</p>
-      </div>
+        <div>
+            <Display
+                text={text}
+                value={calculatedValue}
+                symbol={symbolToInsert}
+            />
+        </div>
     );
-  }
+};
+
+const Statistics = ({ good, neutral, bad }) => {
+    if (good + neutral + bad === 0) {
+        return (
+            <div>
+                <h2>Statistics</h2>
+                <p>No feedback given.</p>
+            </div>
+        );
+    }
 
     return (
         <div>
             <h2>Statistics</h2>
-
-            <Display text="Good" value={good} />
-            <Display text="Neutral" value={neutral} />
-            <Display text="Bad" value={bad} />
-            <Display text="All" value={good + neutral + bad} />
-            <Display
-                text="Average"
-                value={(good + bad * -1) / (good + neutral + bad)}
-            />
-            <Display
+            <Statistic text="Good" value={good} />
+            <Statistic text="Neutral" value={neutral} />
+            <Statistic text="Bad" value={bad} />
+            <Statistic text="All" value={[good, neutral, bad]} />
+            <Statistic text="Average" value={[good, neutral, bad]} />
+            <Statistic
                 text="Positive"
-                value={(good * 100) / (good + neutral + bad)}
+                value={[good, neutral, bad]}
                 symbol="%"
             />
-
         </div>
     );
 };
