@@ -7,3 +7,5 @@ This repo has my submissions for the Full Stack Open course exercises.
 June 22, 2021 - Started The MOOC
 
 June 22, 2021 - Finished part0
+
+Jul 9, 2021 - Finished part1
