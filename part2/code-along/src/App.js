@@ -1,13 +1,5 @@
 import React from 'react'
-
-const Note = ({note}) => {
-  return (
-    <li>
-      {note.content}
-    </li>
-  );
-};
-
+import Note from './Note.js'
 
 const App = ({notes}) => {
   // const { notes } = props
