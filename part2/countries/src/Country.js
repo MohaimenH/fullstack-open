@@ -12,7 +12,7 @@ const Country = ({country}) => {
                 {country.languages.map((language) => <li key={language.iso639_1}>{language.name}</li>)}
             </ul>
 
-            <img src={country.flag} width="400px"/>
+            <img src={country.flag} width="400px" alt={country.name + "'s Flag"}/>
         </div>
     )
 };
