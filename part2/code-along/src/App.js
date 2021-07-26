@@ -29,7 +29,7 @@ const App = (props) => {
         return showAll ? notes : notes.filter((note) => note.important);
     };
 
-    const data = fetch("http://localhost:3001/notes");
+    // const data = fetch("http://localhost:3001/notes"); // Returns a Promise object
 
     return (
         <div>
