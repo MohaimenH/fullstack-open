@@ -29,6 +29,8 @@ const App = (props) => {
         return showAll ? notes : notes.filter((note) => note.important);
     };
 
+    const data = fetch("http://localhost:3001/notes");
+
     return (
         <div>
             <h1>Notes</h1>
