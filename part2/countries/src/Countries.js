@@ -6,7 +6,7 @@ import Country from "./Country";
 
 // const showCountryButton = ({country, onClickHandler}) => ;
 
-const Countries = ({filter, searchUpdater}) => {
+const Countries = ({filter, searchUpdater}) => { // using a state from parent and updating it to get singular display.
 
     const [countries, setCountries] = useState([]);
     
