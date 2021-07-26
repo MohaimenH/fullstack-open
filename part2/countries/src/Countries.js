@@ -6,7 +6,7 @@ import Country from "./Country";
 
 // const showCountryButton = ({country, onClickHandler}) => ;
 
-const Countries = ({filter}) => {
+const Countries = ({filter, searchUpdater}) => {
 
     const [countries, setCountries] = useState([]);
     
@@ -16,7 +16,12 @@ const Countries = ({filter}) => {
         });
     }, []);
     
-    let result = countries.filter((country) => country.name.toLowerCase().includes(filter));
+    const showCountry = (event) => {
+        // console.log(event.target.id);
+        searchUpdater(event.target.id);
+    }
+    
+    let result = countries.filter((country) => country.name.toLowerCase().includes(filter.toLowerCase()));
     
     if (result.length === 0) return <div>No matches, specify another filter.</div> 
     
@@ -26,7 +31,7 @@ const Countries = ({filter}) => {
 
     return (
         <div>
-            {result.map((country) => <div key={country.name}>{country.name} <button>Show</button></div>)}
+            {result.map((country) => <div key={country.name}>{country.name} <button id={country.name} onClick={showCountry}>Show</button></div>)}
         </div>
     )
 };

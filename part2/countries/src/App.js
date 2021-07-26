@@ -14,7 +14,7 @@ const App = () => {
         <div>
             Find Countries:{" "}
             <input value={search} onChange={searchFieldHandler} />
-            <Countries filter={search}/>
+            <Countries filter={search} searchUpdater={setSearch}/>
         </div>
     );
 };
