@@ -54,7 +54,13 @@ const App = (props) => {
                 setNotes(
                     notes.map((note) => (note.id === id ? returnedNote : note))
                 )
-            );
+            )
+            .catch((error) => {
+                alert(
+                    `the note '${note.content}' was already deleted from the server.`
+                );
+                setNotes(notes.filter((n) => n.id !== note.id));
+            });
     };
 
     // const data = fetch("http://localhost:3001/notes"); // Returns a Promise object
