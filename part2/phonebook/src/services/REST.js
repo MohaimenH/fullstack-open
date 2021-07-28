@@ -10,5 +10,9 @@ const addToPhoneBook = (person) => {
     return axios.post(baseURL, person);
 };
 
+const deleteFromPhoneBook = (id) => {
+    return axios.delete(`${baseURL}${id}`);
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { loadPhoneBook, addToPhoneBook };
+export default { loadPhoneBook, addToPhoneBook, deleteFromPhoneBook };
