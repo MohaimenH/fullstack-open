@@ -26,7 +26,7 @@ const App = () => {
     const handleNameAddButton = (event) => {
         event.preventDefault();
 
-        if (persons.filter((person) => person.name === newName).length > 0) {
+        if (persons.find((person) => person.name === newName)) {
             alert(`${newName} is already in the phonebook.`);
             return;
         }
