@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 import Filter from "./Filter";
 import Persons from "./Persons";
 import Form from "./Form";
 
+import rest from "./services/REST";
+
 const App = () => {
     const [persons, setPersons] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/persons').then((response) => {
+        rest.loadPhoneBook().then((response) => {
             setPersons(response.data);
         });
-    }, [])
+    }, []);
     // { name: "Arto Hellas", number: "040-123456" },
     // { name: "Ada Lovelace", number: "39-44-5323523" },
     // { name: "Dan Abramov", number: "12-43-234345" },
@@ -30,7 +31,10 @@ const App = () => {
             return;
         }
 
-        setPersons(persons.concat({ name: newName, number: newNumber }));
+        let person = { name: newName, number: newNumber };
+        rest.addToPhoneBook(person).then((response) => {
+            setPersons(persons.concat(response.data));
+        });
     };
 
     const nameFieldUpdater = (event) => {
