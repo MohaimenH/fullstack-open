@@ -44,13 +44,30 @@ const App = () => {
                 ) {
                     // PUT request
                     let edittedPerson = { ...person, number: newNumber };
-                    rest.editPhoneBook(edittedPerson).then((response) => {
-                        setPersons(
-                            persons.map((p) =>
-                                p.id === response.data.id ? response.data : p
-                            )
-                        );
-                    });
+                    rest.editPhoneBook(edittedPerson)
+                        .then((response) => {
+                            setPersons(
+                                persons.map((p) =>
+                                    p.id === response.data.id
+                                        ? response.data
+                                        : p
+                                )
+                            );
+                        })
+                        .catch((response) => {
+                            setPersons(
+                                persons.filter((p) => p.id !== edittedPerson.id)
+                            );
+
+                            setMessage({
+                                message: `Information of ${edittedPerson.name} has already been deleted`,
+                                success: false,
+                            });
+                            setTimeout(
+                                () => setMessage({ ...message, message: null }),
+                                3000
+                            );
+                        });
                 }
             }
         } else {
