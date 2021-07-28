@@ -14,5 +14,14 @@ const deleteFromPhoneBook = (id) => {
     return axios.delete(`${baseURL}${id}`);
 };
 
+const editPhoneBook = (person) => {
+    return axios.put(`${baseURL}${person.id}`, person);
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { loadPhoneBook, addToPhoneBook, deleteFromPhoneBook };
+export default {
+    loadPhoneBook,
+    addToPhoneBook,
+    deleteFromPhoneBook,
+    editPhoneBook,
+};

@@ -25,16 +25,35 @@ const App = () => {
 
     const handleNameAddButton = (event) => {
         event.preventDefault();
+        let person = persons.find((person) => person.name === newName);
 
-        if (persons.find((person) => person.name === newName)) {
-            alert(`${newName} is already in the phonebook.`);
-            return;
+        if (!!person) {
+            if (person.number === newNumber) {
+                // Same numbers
+                alert(`${newName} is already in the phonebook.`);
+            } else {
+                if (
+                    window.confirm(
+                        `${person.name} is already added to the phonebook, replace the old number?`
+                    )
+                ) {
+                    // PUT request
+                    let edittedPerson = { ...person, number: newNumber };
+                    rest.editPhoneBook(edittedPerson).then((response) => {
+                        setPersons(
+                            persons.map((p) =>
+                                p.id === response.data.id ? response.data : p
+                            )
+                        );
+                    });
+                }
+            }
+        } else {
+            let personToAdd = { name: newName, number: newNumber };
+            rest.addToPhoneBook(personToAdd).then((response) => {
+                setPersons(persons.concat(response.data));
+            });
         }
-
-        let person = { name: newName, number: newNumber };
-        rest.addToPhoneBook(person).then((response) => {
-            setPersons(persons.concat(response.data));
-        });
     };
 
     const nameFieldUpdater = (event) => {
