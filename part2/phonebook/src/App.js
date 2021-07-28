@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Filter from "./Filter";
 import Persons from "./Persons";
 import Form from "./Form";
+import Notification from "./Notification";
 
 import rest from "./services/REST";
 
@@ -22,6 +23,10 @@ const App = () => {
     const [newName, setNewName] = useState("");
     const [newNumber, setNewNumber] = useState("123-456-7890");
     const [search, setSearch] = useState("");
+    const [message, setMessage] = useState({
+        message: null,
+        success: true,
+    });
 
     const handleNameAddButton = (event) => {
         event.preventDefault();
@@ -52,6 +57,15 @@ const App = () => {
             let personToAdd = { name: newName, number: newNumber };
             rest.addToPhoneBook(personToAdd).then((response) => {
                 setPersons(persons.concat(response.data));
+                setNewName("");
+                setMessage({
+                    message: `Added ${response.data.name}`,
+                    success: true,
+                });
+                setTimeout(
+                    () => setMessage({ ...message, message: null }),
+                    3000
+                );
             });
         }
     };
@@ -83,6 +97,7 @@ const App = () => {
     return (
         <div>
             <h1>Phonebook</h1>
+            <Notification {...message} />
             <Filter value={search} onChangeHandler={searchFieldUpdater} />
             <h2>Add a New Number</h2>
             <Form
