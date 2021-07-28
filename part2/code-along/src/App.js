@@ -13,22 +13,23 @@ const App = (props) => {
             console.log("Promise fulfilled");
             setNotes(response.data);
         });
-    }
-    
+    };
+
     useEffect(hook, []);
-    console.log('render', notes.length, 'notes');
+
+    console.log("render", notes.length, "notes");
 
     const addNote = (event) => {
         event.preventDefault();
 
-        let newNoteObject = {
+        let noteObject = {
             id: notes.length + 1,
             content: newNote,
             date: new Date().toISOString,
             important: Math.random() < 0.5,
         };
 
-        setNotes(notes.concat(newNoteObject));
+        setNotes(notes.concat(noteObject));
         setNewNote("");
     };
 
