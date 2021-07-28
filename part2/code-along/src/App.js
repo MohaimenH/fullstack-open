@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Note from "./Note.js";
-import axios from "axios";
 
 import noteService from "./services/notes";
 
@@ -11,8 +10,8 @@ const App = (props) => {
 
     const hook = () => {
         // console.log("Effect");
-        noteService.getAll().then((response) => {
-            setNotes(response.data);
+        noteService.getAll().then((initialNotes) => {
+            setNotes(initialNotes);
         });
     };
 
@@ -30,9 +29,8 @@ const App = (props) => {
             important: Math.random() < 0.5,
         };
 
-        noteService.create(noteObject).then((response) => {
-            console.log(response);
-            setNotes(notes.concat(response.data));
+        noteService.create(noteObject).then((returnedNote) => {
+            setNotes(notes.concat(returnedNote));
             setNewNote("");
         });
     };
@@ -52,9 +50,9 @@ const App = (props) => {
 
         noteService
             .update(id, changedNote)
-            .then((response) =>
+            .then((returnedNote) =>
                 setNotes(
-                    notes.map((note) => (note.id === id ? response.data : note))
+                    notes.map((note) => (note.id === id ? returnedNote : note))
                 )
             );
     };
