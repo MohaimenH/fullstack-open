@@ -24,6 +24,18 @@ let notes = [
     },
 ];
 
+// Middleware
+
+const requestLogger = (request, response, next) => {
+    console.log("method: ", request.method);
+    console.log("path: ", request.path);
+    console.log("body: ", request.body);
+    console.log("---");
+    next();
+};
+
+app.use(requestLogger);
+
 app.get("/", (request, response) => {
     response.send("<h1>Hello World</h1>");
 });
@@ -70,7 +82,14 @@ app.post("/api/notes", (request, response) => {
     response.json(note);
 });
 
-const PORT = 3001;
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({ error: "Unknown Endpoint" });
+    console.log("User arrived at unknown endpoint.");
+};
+
+app.use(unknownEndpoint);
+
+const PORT = 3002;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
