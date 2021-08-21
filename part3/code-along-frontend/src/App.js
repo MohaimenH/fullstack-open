@@ -4,12 +4,14 @@ import Note from "./Note.js";
 import noteService from "./services/notes";
 import Notification from "./Notification";
 import Footer from "./Footer";
+import DarkModeContext from "./DarkModeContext.js";
 
 const App = (props) => {
     const [notes, setNotes] = useState([]);
     const [newNote, setNewNote] = useState("Enter a note...");
     const [showAll, setShowAll] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
+    const themeState = useState("green");
 
     const hook = () => {
         // console.log("Effect");
@@ -74,30 +76,32 @@ const App = (props) => {
 
     return (
         <div>
-            <h1>Notes</h1>
-            <Notification message={errorMessage} />
-            <div>
-                <button onClick={() => setShowAll(!showAll)}>
-                    show {showAll ? "important" : "all"}
-                </button>
-            </div>
+            <DarkModeContext.Provider value={themeState}>
+                <h1 style={{ color: themeState[0] }}>Notes</h1>
+                <Notification message={errorMessage} />
+                <div>
+                    <button onClick={() => setShowAll(!showAll)}>
+                        show {showAll ? "important" : "all"}
+                    </button>
+                </div>
 
-            <ul>
-                {notesToShow().map((note) => (
-                    <Note
-                        key={note.id}
-                        note={note}
-                        toggleImportance={() => toggleImportanceOf(note.id)}
-                    />
-                ))}
-            </ul>
+                <ul>
+                    {notesToShow().map((note) => (
+                        <Note
+                            key={note.id}
+                            note={note}
+                            toggleImportance={() => toggleImportanceOf(note.id)}
+                        />
+                    ))}
+                </ul>
 
-            <form onSubmit={addNote}>
-                <input value={newNote} onChange={handleNoteChange} />
-                <button type="submit">Save</button>
-            </form>
+                <form onSubmit={addNote}>
+                    <input value={newNote} onChange={handleNoteChange} />
+                    <button type="submit">Save</button>
+                </form>
 
-            <Footer />
+                <Footer />
+            </DarkModeContext.Provider>
         </div>
     );
 };
